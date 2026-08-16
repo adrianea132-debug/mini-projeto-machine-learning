@@ -80,9 +80,6 @@ def tratar_nulos_produtos(produtos):
         "product_width_cm",
     ]
 
-    # Calcula a média de cada coluna de dimensão ANTES de qualquer
-    # substituição, para não contaminar o cálculo com valores que
-    # nós mesmos vamos inserir.
     medias = {coluna: calcular_media_coluna(produtos, coluna) for coluna in colunas_dimensoes}
 
     total_nulos_corrigidos = 0
@@ -98,8 +95,6 @@ def tratar_nulos_produtos(produtos):
         for coluna in colunas_dimensoes:
             valor = produto.get(coluna, "")
             if valor in (None, ""):
-                # Preenche o nulo com a média da coluna, arredondada
-                # para 2 casas decimais, mantendo o registro na base.
                 produto[coluna] = round(medias[coluna], 2)
                 total_nulos_corrigidos += 1
 
